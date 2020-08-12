@@ -1,0 +1,50 @@
+﻿<Window x:Class="CaliburnTest.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EdenGUI.Views"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:cal="http://www.caliburnproject.org"
+        mc:Ignorable="d"
+        Title="MainView" Height="600" Width="1000">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Vertical">
+            <TextBlock x:Name="Name1" Text="{Binding Count}"/>
+            <TextBox x:Name="Count" />
+            <RepeatButton Content="Long Syntax" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <cal:ActionMessage MethodName="IncrementCount">
+                            <cal:Parameter Value="10"/>
+                        </cal:ActionMessage>
+
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </RepeatButton>
+            <Button Content="Short Syntax " 
+                    cal:Message.Attach="[Event Click] = [Action IncrementCount(1)]"
+                    >
+            </Button>
+            <Button Content="Auto Bind " x:Name="IncrementCount"/>
+            <Button Content="Ts2AppView" x:Name="ShowAppView"/>
+
+        </StackPanel>
+        <Slider x:Name="Delta" Value="2" Grid.Column="1" Width="200"></Slider>
+        <Button x:Name="btnStart"   Grid.Row="3" Grid.Column="0" Content="start"/>
+        <Button x:Name="btnLoad"    Grid.Row="3" Grid.Column="1" Content="Load"/>
+        <Button x:Name="btnHome"    Grid.Row="3" Grid.Column="2" Content="Home"  FontStyle="Italic" FontWeight="Bold" Foreground="#FF50301D" />
+        <Button x:Name="btnHomeLp1" Grid.Row="3" Grid.Column="3" Content="Homelp1"  FontStyle="Italic" FontWeight="Bold" Foreground="#FF50301D" />
+    </Grid>
+</Window>

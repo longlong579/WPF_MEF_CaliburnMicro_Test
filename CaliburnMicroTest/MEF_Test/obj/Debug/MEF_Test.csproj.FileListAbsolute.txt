@@ -1,0 +1,16 @@
+D:\XHLProjects\CaliburnMicroTest\MEF_Test\bin\Debug\MEF_Test.exe.config
+D:\XHLProjects\CaliburnMicroTest\MEF_Test\bin\Debug\MEF_Test.exe
+D:\XHLProjects\CaliburnMicroTest\MEF_Test\bin\Debug\MEF_Test.pdb
+D:\XHLProjects\CaliburnMicroTest\MEF_Test\bin\Debug\HZZG.Common.Tools.dll
+D:\XHLProjects\CaliburnMicroTest\MEF_Test\bin\Debug\HZZG.Common.Tools.pdb
+D:\XHLProjects\CaliburnMicroTest\MEF_Test\obj\Debug\MEF_Test.csprojResolveAssemblyReference.cache
+D:\XHLProjects\CaliburnMicroTest\MEF_Test\obj\Debug\MainWindow.g.cs
+D:\XHLProjects\CaliburnMicroTest\MEF_Test\obj\Debug\App.g.cs
+D:\XHLProjects\CaliburnMicroTest\MEF_Test\obj\Debug\MEF_Test_MarkupCompile.cache
+D:\XHLProjects\CaliburnMicroTest\MEF_Test\obj\Debug\MEF_Test_MarkupCompile.lref
+D:\XHLProjects\CaliburnMicroTest\MEF_Test\obj\Debug\MainWindow.baml
+D:\XHLProjects\CaliburnMicroTest\MEF_Test\obj\Debug\MEF_Test.g.resources
+D:\XHLProjects\CaliburnMicroTest\MEF_Test\obj\Debug\MEF_Test.Properties.Resources.resources
+D:\XHLProjects\CaliburnMicroTest\MEF_Test\obj\Debug\MEF_Test.csproj.GenerateResource.Cache
+D:\XHLProjects\CaliburnMicroTest\MEF_Test\obj\Debug\MEF_Test.exe
+D:\XHLProjects\CaliburnMicroTest\MEF_Test\obj\Debug\MEF_Test.pdb
