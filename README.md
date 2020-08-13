@@ -13,7 +13,7 @@ WPF程序 =》MEF +Caliburation
 #注意点
 MEF_Test 和MEF_Exported相对应，一个是界面，功能利用接口完成，另一个是服务的实际提供者。从而实现解耦。部署项目时，只要接口不变，则可以只替换MEF_Exported.dll,不必重新编译整个软件
 
-1.Imort必须被CompositionContainer管理
-2.懒加载Lazy<T>/Lazy<T,V>实现需要时才加载
-3.元素组使用特性修饰，在多个导出时
-4.属性注入和构造函数注入的区别与应用
+  1.Imort必须被CompositionContainer管理
+  2.懒加载Lazy<T>/Lazy<T,V>实现需要时才加载
+  3.元素组使用特性修饰，在多个导出时
+  4.属性注入和构造函数注入的区别与应用
