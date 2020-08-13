@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attribute\SelfAttributes.cs" />
+    <Compile Include="Constract\ContractName.cs" />
     <Compile Include="Constract\IConstract.cs" />
     <Compile Include="Exported\ExportedClass.cs" />
     <Compile Include="Log\LogManager.cs" />

@@ -14,8 +14,9 @@ namespace MEF_Test
     /// 
     /// </summary>
     public partial class MainWindow : Window
-    { 
+    {
         // 有Import则必须要有对应的CompositionContainer
+        //如果创建策略为非共享的部件过多，很占用很多资源，不过不用担心：容器提供了 ReleaseExport 方法。此方法可以释放导出部件，并对部件占用的资源进行释放。
         private CompositionContainer _container;
         /// <summary>
        
@@ -23,11 +24,13 @@ namespace MEF_Test
         public ILog log;
 
         [Import]
-        public ICalculator calculator;
+        public Lazy<ICalculator> calculator;//用到时加载
 
-        [Import]
+        [Import(ContractName.AnimaleOne, RequiredCreationPolicy = CreationPolicy.Shared)]//创建策略：Shared：共享，NonShared：使用时分别创建
         public IAniamalSound amimalSound;
 
+        [Import(ContractName.AnimaleTwo, RequiredCreationPolicy = CreationPolicy.NonShared)]//创建策略：Shared：共享，NonShared：使用时分别创建
+        public IAniamalSound amimalSound2;
         public MainWindow()
         {
             InitMEF();
@@ -37,12 +40,12 @@ namespace MEF_Test
             log.Warn("我是MEF的Log测试");
 
             amimalSound.call("猫叫");
-           // Console.WriteLine(amimalSound.cal.Calculate("1+4"));//不建议这么用(实现类要加public),建议用构造函数注入
+            amimalSound2.call("狗叫");
             Console.WriteLine("Enter Command:");
             while (true)
             {
                 s = Console.ReadLine();
-                Console.WriteLine(this.calculator.Calculate(s));
+                Console.WriteLine(this.calculator.Value.Calculate(s));
             }
         }
 

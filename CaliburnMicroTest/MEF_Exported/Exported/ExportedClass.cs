@@ -37,7 +37,17 @@ namespace MEF_Test
     }
 
     #region 计算服务
-    [ExportOperate(OperateType =OperateTypes.Add)]
+    /// <summary>
+    /// 默认是单例 可以在Export上指定创建策略，也可以在[Import]上指定
+    /// MEF的创建策略有：Shared（共享）和NonShared(非共享)1. 标记为Any的导出部件与Shared和NonShared的导入均能成功匹配；
+    ///当导入导出都是用默认创建策略，或者都是用默认，MEF将默认创建策略为Shared
+    ///2. 创建策略为Shared或NonShared的导出以及标记为Any的导入匹配成功；
+    ///3. 创建策略为Shared的导出只能与创建策略为Shared和标记为Any匹配成功；
+    ///4. 创建策略为NonShared的导出只能为Shared和标记为Any的导入匹配成功。
+    ///导入部件  [Import(RequiredCreationPolicy = CreationPolicy.Shared)]
+    ///导出部件[PartCreationPolicy(CreationPolicy.NonShared)]
+    /// </summary>
+    [ExportOperate(OperateTypeStr ="+")]
     class Add : IOperation
     {
         //构造函数此次至是用来做Debug测试
@@ -52,7 +62,7 @@ namespace MEF_Test
         }
     }
 
-    [ExportOperate(OperateType = OperateTypes.Sub)]
+    [ExportOperate(OperateType =OperateTypes.Sub, OperateTypeStr ="-")]
     class Subtract : IOperation
     {
         public Subtract()
@@ -60,14 +70,14 @@ namespace MEF_Test
             WPFConsoleManager.Show();
             Console.WriteLine("Subtract Created");
         }
+
         public int Operate(int left, int right)
         {
             return left - right;
         }
     }
 
-
-
+  
     [Export(typeof(ICalculator))]
      class MySimpleCalculator : ICalculator
     {
@@ -108,7 +118,9 @@ namespace MEF_Test
 
             foreach (Lazy<IOperation, IOperateMetadata> i in operations)
             {
-                if (i.Metadata.OperateType.GetDescription().Equals(operation)) return i.Value.Operate(left, right).ToString();
+                //if (i.Metadata.OperateType.GetDescription().Equals(operation)) return i.Value.Operate(left, right).ToString();
+                if (i.Metadata.OperateTypeStr.Equals(operation)) return i.Value.Operate(left, right).ToString();
+
             }
             return "Operation Not Found!";
         }
@@ -126,14 +138,21 @@ namespace MEF_Test
 
     #endregion
 
-    #region 对象注入
-    [Export(typeof(IAniamalSound))]
+    #region 对象注入 传入参数可以在构造函数中调用，属性注入则必须等构造完毕才能用
+    /// <summary>
+    ///注意：若导出部件占用资源，继承IDisposable释放（容器释放或调用ReleaseExport时）
+    ///如果部件实现了接口IPartImportsSatisfiedNotification ，当组合已完成并且部件的导入可供使用时，组合窗口将对部件调用接口中得方法OnImportsSatisfied。
+    ///IPartImportsSatisfiedNotification 包含一个名为 OnImportsSatisfied 的方法。
+    ///当组合已完成并且部件的导入可供使用时，组合窗口将对实现接口的任何部件调用此方法。
+    ///部件是组合引擎创建，用于满足其他部件的导入。 在设置好部件的导入之前，
+    ///您无法执行任何依赖于部件构造函数中的导入值或对这些值进行操作的初始化，
+    ///除非已通过使用 ImportingConstructor 特性将这些指定为必备。 
+    ///此方法通常为首选方法，但在某些情况下，构造函数注入可能不可用。 
+    ///在这些情况下，可以在 OnImportsSatisfied 中执行初始化，并且部件应实现 IPartImportsSatisfiedNotification。
+    /// </summary>
+    [Export(ContractName.AnimaleOne, typeof( IAniamalSound))]
     class AnimalSound : IAniamalSound
     {
-        //属性注入
-        [Import]
-        public ICalculator cal { get; set; }
-
         // 构造函数注入，优先级比默认高（默认构造函数不调用）
         public ILog log;      
         [ImportingConstructor]
@@ -141,14 +160,13 @@ namespace MEF_Test
         {
             this.log = log;
             WPFConsoleManager.Show();
-            Console.WriteLine("AnimalSound Created");
             log.Info("AnimalSound Created");
         }
 
         public AnimalSound()
         {
             WPFConsoleManager.Show();
-            Console.WriteLine("AnimalSound222 Created");
+            Console.WriteLine("AnimalSound2 Created");
         }
 
         public void call(string sound)
@@ -157,6 +175,33 @@ namespace MEF_Test
         }
      
     }
-  
+    #endregion
+
+    #region 属性注入
+    [Export(ContractName.AnimaleTwo, typeof(IAniamalSound))]
+    class AnimalSound2 : IAniamalSound,IPartImportsSatisfiedNotification
+    {
+        ////属性注入
+        [Import]
+        public ILog log { get; set; } 
+            
+        public AnimalSound2()
+        {
+            this.log = log;
+            WPFConsoleManager.Show();
+            Console.WriteLine("AnimalSound2 Created");
+        }
+
+        public void call(string sound)
+        {
+            Console.WriteLine("AnimalSound2:" + sound);
+        }
+
+        //会在构造完毕后回调
+        public void OnImportsSatisfied()
+        {
+            log.Info($"AnimalSound2 属性注入 log回调");
+        }
+    }
     #endregion
 }
