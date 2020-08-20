@@ -5,9 +5,9 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaliburnTest", "CaliburnTest\CaliburnTest.csproj", "{619CDA08-2140-4F4D-BA46-E70F1D9D05A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MEF_Test", "MEF_Test\MEF_Test.csproj", "{2FDDA14A-A1AD-427D-907F-F3C0FB865F7D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MEF_ConsoleTest", "MEF_Test\MEF_ConsoleTest.csproj", "{2FDDA14A-A1AD-427D-907F-F3C0FB865F7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MEF_Exported", "MEF_Exported\MEF_Exported.csproj", "{D143E80D-5FDE-443E-8F25-23086798E32E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MEF_ConsoleExported", "MEF_Exported\MEF_ConsoleExported.csproj", "{D143E80D-5FDE-443E-8F25-23086798E32E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

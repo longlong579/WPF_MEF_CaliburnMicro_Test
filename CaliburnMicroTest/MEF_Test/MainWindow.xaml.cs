@@ -6,6 +6,7 @@ using HZZG.Common.Tolls;
 using MEF_Exported.Constract;
 using log4net;
 using System.Reflection;
+using System.Net;
 
 namespace MEF_Test
 {
@@ -49,13 +50,16 @@ namespace MEF_Test
             }
         }
 
+        
         private void InitMEF()
         {
+            
+            string sPath = Environment.GetEnvironmentVariable("MEF_EXPORTED_HOME");
             //An aggregate catalog that combines multiple catalogs
             var catalog = new AggregateCatalog();
             //Adds all the parts found in the same assembly as the Program class
             catalog.Catalogs.Add(new AssemblyCatalog(typeof(MainWindow).Assembly));//本地可执行文件
-            catalog.Catalogs.Add(new DirectoryCatalog(@"D:\XHLProjects\WPF_MEF_CaliburnMicro_Test\CaliburnMicroTest\MEF_Exported\bin\Debug\"));//Exported文件夹下
+            catalog.Catalogs.Add(new DirectoryCatalog($@"{sPath}\bin\Debug\"));//Exported文件夹下
 
             //Create the CompositionContainer with the parts in the catalog
             _container = new CompositionContainer(catalog);
@@ -76,6 +80,7 @@ namespace MEF_Test
         private void DownloadAssemblies(AggregateCatalog catalog)
         {
             //asynchronously downloads assemblies and calls AddAssemblies
+            //LoadSLAssembly();
         }
 
         //之所以采用这种方式进行添加，是为了一次性完成重新组合，而不是反复进行（在直接添加程序集目录时会出现这种情况）。
@@ -86,6 +91,28 @@ namespace MEF_Test
                 assemblyCatalogs.Catalogs.Add(new AssemblyCatalog(assembly));
             catalog.Catalogs.Add(assemblyCatalogs);
         }
-        #endregion
-    }
+        private void LoadSLAssembly()
+        {
+            //if (Application.Current.Host.Source != null)
+            //{
+            //    string uri = "XXX" + "/Parts/MEFDemo_SL.Extensions.dll";
+
+            //    WebClient client = new WebClient();
+            //    client.OpenReadCompleted += ClientOpenReadCompleted;
+
+            //    //根据给定的URI,启动异步下载
+            //    client.OpenReadAsync(new Uri(uri));
+            //}
+        }
+        /// <summary>
+        /// 下载完成时触发
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void ClientOpenReadCompleted(object sender, OpenReadCompletedEventArgs e)
+         {
+  
+         }
+    #endregion
+}
 }

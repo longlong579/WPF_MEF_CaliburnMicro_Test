@@ -105,9 +105,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MEF_Exported\MEF_Exported.csproj">
+    <ProjectReference Include="..\MEF_Exported\MEF_ConsoleExported.csproj">
       <Project>{d143e80d-5fde-443e-8f25-23086798e32e}</Project>
-      <Name>MEF_Exported</Name>
+      <Name>MEF_ConsoleExported</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
